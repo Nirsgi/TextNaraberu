@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>辞書ナリー</title>
+<body>
+<label for="tango">単語</label>
+<input id="tango"></input>
+<label for="imi">意味</label>
+<input id="imi"></input>
+<button id="button">辞書に追加。</button>
+<label for="data"><br>辞書</label><textarea readonly id="data"></textarea>
+</body>
+<style>
+label,input,button{
+font-size:130px;
+}
+textarea{
+font-size:130px;
+  resize: none; /* 手動リサイズを禁止 */
+  min-height: 100px; /* 高さの最小値を指定（任意） */
+  width: 100%;
+}
+</style>
+</head>
+<script>
+var button = document.getElementById("button");
+button.addEventListener("click", function(e) {
+var a =document.getElementById('tango').value
+var b = document.getElementById('imi').value
+ if (!(a == '' && b == '')){
+    e.preventDefault();
+    var tango = document.getElementById("tango").value;
+    var imi = document.getElementById("imi").value;
+ 
+    // 取得した値を別の入力フォームに表示
+    var tx =   tango + ":" + imi + "&#13;"
+    document.getElementById('data').innerHTML += tx ;
+ document.getElementById('tango').value = ''
+ document.getElementById('imi').value = ''
+}
+});
+button.addEventListener("click", () => {
+var a =document.getElementById('tango').value
+var b = document.getElementById('imi').value
+ if (!(a == '' && b == '')){
+  // textareaタグを全て取得
+  var textareaEl = document.getElementById("data");
+    textareaEl.setAttribute("style", `height: ${textareaEl.scrollHeight}px;`);
+    // inputイベントが発生するたびに関数呼び出し
+    textareaEl.addEventListener("input", setTextareaHeight);
+  // textareaの高さを計算して指定する関数
+  function setTextareaHeight() {
+    this.style.height = "auto";
+    this.style.height = `${this.scrollHeight}px`;
+  }
+}
+});
+  </script>
+</html>
